@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'c#+ae+d#s0i88&yesiv2c&-i^+*eq*dkm9q=6-)v1x&)1g#nj('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['fishwithmilkblog.herokuapp.com']
 
