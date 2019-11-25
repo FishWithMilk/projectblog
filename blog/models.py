@@ -6,9 +6,11 @@ from django.urls import reverse
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
+    picture = models.ImageField(upload_to='post_pics')
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey('users.Profile', on_delete=models.CASCADE)
+    author = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title

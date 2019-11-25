@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'projectblog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'blogdb',
+        'NAME': 'blogdatabase',
         'USER': 'admin',
         'PASSWORD': '211197',
         'HOST': 'localhost',
@@ -142,4 +142,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'mikegorobets@gmail.com'
 EMAIL_HOST_PASSWORD = '211197MikeGor'
 django_heroku.settings((locals()))
+AUTH_USER_MODEL = 'users.CustomUser' # new
 

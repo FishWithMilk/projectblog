@@ -2,19 +2,11 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView,CreateView,UpdateView, DeleteView
 from .models import Post
 from django.views.generic import TemplateView
-from users.models import Profile
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.models import User
+from users.models import CustomUser
 # Create your views here.
 
-posts = [
-    {
-        'author': 'Mike',
-        'title': 'Blog Post 1',
-        'content': 'First post content',
-        'date_posted': '6 November, 2019'
-    }
-]
+
 
 
 class PostListView(ListView):
@@ -32,8 +24,7 @@ class UserPostListView(ListView):
     paginate_by = 3
 
     def get_queryset(self):
-        Pr = Profile.user.username
-        user = get_object_or_404(Profile, username=self.kwargs.get('username'))
+        user = get_object_or_404(CustomUser, username=self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-date_posted')
 
 
@@ -44,10 +35,10 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'picture']
 
     def form_valid(self, form):
-        form.instance.author = self.request.user.profile
+        form.instance.author = self.request.user
         return super().form_valid(form)
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -80,4 +71,4 @@ def index(request):
     context = {
         'posts': Post.objects.all()
     }
-    return render(request, 'blog/index.html', posts)
+    return render(request, 'blog/index.html', context)

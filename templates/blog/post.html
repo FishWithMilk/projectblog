@@ -1,22 +1,21 @@
 {% extends 'blog/base.html' %}
 {% load staticfiles %}
 {% block content %}
-    {% include 'blog/page_header.html' with header_img_url='/static/img/post-bg.jpg' header_title='Clean Blog' header_subtitle='A Blog Theme by Start Bootstrap' %}
+    {% include 'blog/page_header.html' with header_img_url=post.picture.url header_title='Clean Blog' header_subtitle='A Blog Theme by Start Bootstrap' %}
     <!-- Post Content -->
     <article>
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
 
-                    <p class="post-meta">Posted by <a href="{% url 'user-posts' object.author.user.username %}">{{ object.author.user.username }}</a> on {{ post.date_posted|date:"F d, Y" }}</p>
+                    <p class="post-meta">Posted by <a href="{% url 'user-posts' post.author %}">{{ post.author.username }}</a> on {{ post.date_posted|date:"F d, Y" }}</p>
 
                     <h2 class="section-heading">{{ post.title }}</h2>
 
                     <p>{{ post.content }}</p>
 
-                    <img class="img-fluid" src="{% static 'img/post-sample-image.jpg' %}" alt="">
+                    <img class="img-fluid" src="{{ post.picture.url }}">
 
-                    <span class="caption text-muted">To go places and do things that have never been done before – that’s what living is all about.</span>
 
                     {% if object.author == user.profile %}
                         <div>

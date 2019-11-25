@@ -28,7 +28,7 @@
                                 {{ post.content|truncatewords:50 }}
                             </h3>
                         </a>
-                        <p class="post-meta">Posted by <a href="{% url 'user-posts' post.author.user.username %}">{{ post.author.user }}</a> on {{ post.date_posted }}</p>
+                        <p class="post-meta">Posted by <a href="{% url 'user-posts' post.author %}">{{ post.author.username }}</a> on {{ post.date_posted }}</p>
                     </div>
                     <hr>
                     <!-- Pager -->
