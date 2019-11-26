@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView,CreateView,UpdateView, DeleteView
-from .models import Post
+from .models import Post,Category
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from users.models import CustomUser
@@ -15,6 +15,24 @@ class PostListView(ListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
     paginate_by = 3
+
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'blog/category_list.html'
+    context_object_name = 'categories'
+    paginate_by = 3
+
+
+class CategorySortedListView(ListView):
+    model = Post
+    template_name = 'blog/sortedcategory_list.html'
+    context_object_name = 'posts'
+    paginate_by = 3
+
+    def get_queryset(self):
+        category = get_object_or_404(Category, name=self.kwargs.get('name'))
+        return Post.objects.filter(category=category).order_by('-date_posted')
 
 
 class UserPostListView(ListView):
@@ -35,23 +53,24 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content', 'picture']
+    fields = ['title', 'content', 'category', 'picture']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'category', 'picture']
 
     def form_valid(self, form):
-        form.instance.author = self.request.user.profile
+        form.instance.author = self.request.user
         return super().form_valid(form)
 
     def test_func(self):
         post = self.get_object()
-        if self.request.user.profile == post.author:
+        if self.request.user == post.author:
             return True
         return False
 
@@ -62,7 +81,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         post = self.get_object()
-        if self.request.user.profile == post.author:
+        if self.request.user == post.author:
             return True
         return False
 

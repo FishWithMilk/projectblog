@@ -4,7 +4,7 @@
 
 {% block content %}
     {% include 'blog/page_header.html' with header_img_url='/static/img/home-bg.jpg' header_title='Clean Blog' header_subtitle='A Blog Theme by Start Bootstrap' %}
-<h1 class="mb-3">Post by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
+<h1 class="mb-3">All from "{{ view.kwargs.name }}" category ({{ page_obj.paginator.count }})</h1>
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">

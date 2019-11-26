@@ -8,16 +8,18 @@
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
 
-                    <p class="post-meta">Posted by <a href="{% url 'user-posts' post.author %}">{{ post.author.username }}</a> on {{ post.date_posted|date:"F d, Y" }}</p>
 
                     <h2 class="section-heading">{{ post.title }}</h2>
+                    <a href="{% url 'sorted-category' post.category.get %}"><span class="badge badge-warning">{{ post.category.get }}</span></a>
 
-                    <p>{{ post.content }}</p>
+                    <p class="post-meta">Posted by <a href="{% url 'user-posts' post.author %}">{{ post.author.username }}</a> on {{ post.date_posted|date:"F d, Y" }}</p>
 
                     <img class="img-fluid" src="{{ post.picture.url }}">
 
+                    <p>{{ post.content }}</p>
 
-                    {% if object.author == user.profile %}
+
+                    {% if object.author == user %}
                         <div>
                             <a class="btn btn-secondary btn-sm mt-1 mb-1"
                                href="{% url 'post-update' object.id %}">Update</a>
