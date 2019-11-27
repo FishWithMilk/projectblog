@@ -10,9 +10,12 @@
 
 
                     <h2 class="section-heading">{{ post.title }}</h2>
-                    <a href="{% url 'sorted-category' post.category.get %}"><span class="badge badge-warning">{{ post.category.get }}</span></a>
+                    <a href="{% url 'sorted-category' post.category.get %}"><span
+                            class="badge badge-warning">{{ post.category.get }}</span></a>
 
-                    <p class="post-meta">Posted by <a href="{% url 'user-posts' post.author %}">{{ post.author.username }}</a> on {{ post.date_posted|date:"F d, Y" }}</p>
+                    <p class="post-meta">Posted by <a
+                            href="{% url 'user-posts' post.author %}">{{ post.author.username }}</a>
+                        on {{ post.date_posted|date:"F d, Y" }}</p>
 
                     <img class="img-fluid" src="{{ post.picture.url }}">
 
@@ -27,6 +30,29 @@
                                href="{% url 'post-delete' object.id %}">Delete</a>
                         </div>
                     {% endif %}
+                    <hr>
+
+                    <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+
+                    {% for comment in post.comments.all %}
+                        {% if user.is_authenticated %}
+                            <div class="comment">
+                                <div class="row">
+                                    <p><img class="rounded-circle account-img ml-3" src="{{ comment.author.image.url }}"
+                                            width="35" height="35"></p>
+                                    <object><p class="post-meta ml-2 "><a
+                                            href="{% url 'user-posts' comment.author %}">{{ comment.author.username }}</a>
+                                    </p>
+                                    </object>
+                                    <p class="ml-3">{{ comment.created_date }}</p>
+                                </div>
+                                <p>{{ comment.text|linebreaks }}</p>
+                                <hr>
+                            </div>
+                        {% endif %}
+                    {% empty %}
+                        <p>No comments here yet :(</p>
+                    {% endfor %}
                 </div>
             </div>
         </div>

@@ -22,7 +22,9 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
     path('category/', CategoryListView.as_view(), name='category'),
     path('category/<str:name>/', CategorySortedListView.as_view(), name='sorted-category'),
-
+    path('post/<int:pk>/comment/', views.add_comment_to_post, name='add_comment_to_post'),
+    path('comment/<int:pk>/approve/', views.comment_approve, name='comment_approve'),
+    path('comment/<int:pk>/remove/', views.comment_remove, name='comment_remove'),
     path('about/', TemplateView.as_view(template_name='blog/about.html'), name='about_url'),
     path('contact/', TemplateView.as_view(template_name='blog/contact.html'), name='contact_url'),
     path('post/', TemplateView.as_view(template_name='blog/post.html'), name='post_url'),

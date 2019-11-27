@@ -24,10 +24,14 @@
                             <h2 class="post-title">
                                 {{ post.title }}
                             </h2>
-                            <object><a href="{% url 'sorted-category' post.category.get %}"><span class="badge badge-warning">{{ post.category.get }}</span></a></object>
+                            <object><a href="{% url 'sorted-category' post.category.get %}"><span
+                                    class="badge badge-warning">{{ post.category.get }}</span></a></object>
                             <div class="row">
-                                <p><img class="rounded-circle account-img ml-3" src="{{ post.author.image.url }}" width="35" height="35"></p>
-                                <object><p class="post-meta ml-2 "><a href="{% url 'user-posts' post.author %}">{{ post.author.username }}</a>  </p></object>
+                                <p><img class="rounded-circle account-img ml-3" src="{{ post.author.image.url }}"
+                                        width="35" height="35"></p>
+                                <object><p class="post-meta ml-2 "><a
+                                        href="{% url 'user-posts' post.author %}">{{ post.author.username }}</a></p>
+                                </object>
                                 <p class="ml-3">{{ post.date_posted }}</p>
                             </div>
 
@@ -36,6 +40,7 @@
                             <h3 class="post-subtitle">
                                 <p>{{ post.content|truncatewords:50 }}</p>
                             </h3>
+                            <a href="{% url 'post-detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
                         </a>
                     </div>
                     <hr>
