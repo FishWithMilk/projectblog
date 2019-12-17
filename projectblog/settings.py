@@ -31,15 +31,18 @@ ALLOWED_HOSTS = ['fishwithmilkblog.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
-    'blog.apps.BlogConfig',
-    'users.apps.UsersConfig',
-    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles'
+    'django.contrib.staticfiles',
+    'blog.apps.BlogConfig',
+    'users.apps.UsersConfig',
+    'crispy_forms',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
         },
     },
@@ -143,4 +147,13 @@ EMAIL_HOST_USER = 'mikegorobets@gmail.com'
 EMAIL_HOST_PASSWORD = '211197MikeGor'
 django_heroku.settings((locals()))
 AUTH_USER_MODEL = 'users.CustomUser' # new
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+
+    ]
+}
 

@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Clean Blog - Start Bootstrap Theme</title>
+    <title>BlogBurz</title>
 
     {% load staticfiles %}
     <!-- Bootstrap core CSS -->
@@ -45,6 +45,45 @@
 
 <script src="{% static 'js/clean-blog.min.js' %}"></script>
 
+
+<script>
+    $(document).ready(function () {
+        function updateText(btn, newCount, verb) {
+            btn.text(newCount + " " + verb)
+        }
+
+        $(".like-btn").click(function(e) {
+            e.preventDefault()
+            var this_ = $(this)
+            var likeUrl = this_.attr("data-href")
+            var likeCount = parseInt(this_.attr("data-likes"))
+            var addLike = likeCount + 1
+            var removeLike = likeCount - 1
+            if (likeUrl) {
+                $.ajax({
+                    url: likeUrl,
+                    method: "GET",
+                    data: {},
+                    success: function (data) {
+                        console.log(data)
+                        var newlikes;
+                        if (data.liked) {
+                            updateText(this_, addLike, "Unlike")
+                            likeCount = likeCount + 1
+                        } else {
+                            updateText(this_, likeCount, "Like")
+
+                        }
+                    }, error: function (error) {
+                        console.log(error)
+                        console.log("error")
+                    }
+
+                })
+            }
+        })
+    })
+</script>
 
 </body>
 

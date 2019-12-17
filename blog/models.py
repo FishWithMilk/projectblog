@@ -10,7 +10,7 @@ class Post(models.Model):
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
-    rating = models.IntegerField(default=0)
+    likes = models.ManyToManyField('users.CustomUser', related_name='likes', blank=True)
     category = models.ManyToManyField('Category', help_text="Select a category for this article", blank=True, null=True)
 
     def __str__(self):
@@ -19,8 +19,11 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
 
-    def approved_comments(self):
-        return self.comments.filter(approved_comment=True)
+    def get_like_url(self):
+        return reverse('like-toogle', kwargs={'pk': self.pk})
+
+    def get_api_like_url(self):
+        return reverse('like-api-toogle', kwargs={'pk': self.pk})
 
 # Create your models here.
 

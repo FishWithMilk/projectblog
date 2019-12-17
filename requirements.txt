@@ -1,3 +1,4 @@
+djangorestframework
 dj-database-url==0.5.0
 Django==2.2.6
 django-crispy-forms==1.8.0

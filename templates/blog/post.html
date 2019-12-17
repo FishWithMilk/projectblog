@@ -1,5 +1,7 @@
 {% extends 'blog/base.html' %}
 {% load staticfiles %}
+
+
 {% block content %}
     {% include 'blog/page_header.html' with header_img_url=post.picture.url header_title='Clean Blog' header_subtitle='A Blog Theme by Start Bootstrap' %}
     <!-- Post Content -->
@@ -17,11 +19,13 @@
                             href="{% url 'user-posts' post.author %}">{{ post.author.username }}</a>
                         on {{ post.date_posted|date:"F d, Y" }}</p>
 
+
                     <img class="img-fluid" src="{{ post.picture.url }}">
 
                     <p>{{ post.content }}</p>
 
-
+                    <p><a class="like-btn" data-href="{{ post.get_api_like_url }}" data-likes="{{ post.likes.count }}"
+                          href="{{ post.get_like_url }}">{{ post.likes.count }} Like</a></p>
                     {% if object.author == user %}
                         <div>
                             <a class="btn btn-secondary btn-sm mt-1 mb-1"
