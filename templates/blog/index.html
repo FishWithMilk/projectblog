@@ -40,7 +40,7 @@
                             <h3 class="post-subtitle">
                                 <p>{{ post.content|truncatewords:50 }}</p>
                             </h3>
-                            <a href="{% url 'post-detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
+                            <a href="{% url 'post-detail' pk=post.pk %}">Comments: {{ post.comments.count }} Views: {{ post.hit_count.hits }}</a>
                         </a>
                     </div>
                     <hr>

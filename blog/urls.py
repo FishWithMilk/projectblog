@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
 from django.urls import path
 from . import views
 from django.urls import path, include
@@ -7,7 +8,6 @@ from django.views.generic import TemplateView
 from .views import PostListView, PostDetailView,\
     PostCreateView, PostUpdateView, PostDeleteView,\
     UserPostListView, CategoryListView, CategorySortedListView,\
-    PostLikeToogle, PostLikeAPIToogle,\
     PostCreateViewAPI, PostListViewAPI, PostDetailViewAPI
 
 urlpatterns = [
@@ -16,10 +16,9 @@ urlpatterns = [
     path('post/create/', PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
-    path('post/<int:pk>/like/', PostLikeToogle.as_view(), name='like-toogle'),
-    path('post/<int:pk>/api/like/', PostLikeAPIToogle.as_view(), name='like-api-toogle'),
     path('post/', TemplateView.as_view(template_name='blog/post.html'), name='post_url'),
     path('post/<int:pk>/comment/', views.add_comment_to_post, name='add_comment_to_post'),
+
     path('user/<str:username>/', UserPostListView.as_view(), name='user-posts'),
     path('category/', CategoryListView.as_view(), name='category'),
     path('category/<str:name>/', CategorySortedListView.as_view(), name='sorted-category'),

@@ -1,6 +1,6 @@
 {% extends 'blog/base.html' %}
 {% load staticfiles %}
-
+{% load hitcount_tags %}
 
 {% block content %}
     {% include 'blog/page_header.html' with header_img_url=post.picture.url header_title='Clean Blog' header_subtitle='A Blog Theme by Start Bootstrap' %}
@@ -17,31 +17,31 @@
 
                     <p class="post-meta">Posted by <a
                             href="{% url 'user-posts' post.author %}">{{ post.author.username }}</a>
-                        on {{ post.date_posted|date:"F d, Y" }}</p>
+                        on {{ post.date_posted }}</p>
 
 
                     <img class="img-fluid" src="{{ post.picture.url }}">
 
                     <p>{{ post.content }}</p>
 
-                    <p><a class="like-btn" data-href="{{ post.get_api_like_url }}" data-likes="{{ post.likes.count }}"
-                          href="{{ post.get_like_url }}">{{ post.likes.count }} Like</a></p>
+
                     {% if object.author == user %}
                         <div>
-                            <a class="btn btn-secondary btn-sm mt-1 mb-1"
+                            <a class="btn btn-success btn-sm mt-1 mb-1"
                                href="{% url 'post-update' object.id %}">Update</a>
                             <a class="btn btn-danger btn-sm mt-1 mb-1"
                                href="{% url 'post-delete' object.id %}">Delete</a>
                         </div>
                     {% endif %}
-                    <hr>
+                    <p>Comments: {{ post.comments.count }} Views: {{ post.hit_count.hits }}</p>
 
-                    <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+                    <a class="btn btn-dark" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+                    <p></p>
 
                     {% for comment in post.comments.all %}
                         {% if user.is_authenticated %}
-                            <div class="comment">
-                                <div class="row">
+                            <div class="comment border-bottom border-top">
+                                <div class="row ml-2">
                                     <p><img class="rounded-circle account-img ml-3" src="{{ comment.author.image.url }}"
                                             width="35" height="35"></p>
                                     <object><p class="post-meta ml-2 "><a
@@ -49,9 +49,13 @@
                                     </p>
                                     </object>
                                     <p class="ml-3">{{ comment.created_date }}</p>
+                                    {% if comment.author == user %}
+                                        <p><a href="{% url 'comment_remove' pk=comment.pk %}"><i class="fas fa-trash-alt" ></i></a></p>
+                                    {% endif %}
+
                                 </div>
-                                <p>{{ comment.text|linebreaks }}</p>
-                                <hr>
+                             <p class="ml-2">{{ comment.text|linebreaks }}</p>
+
                             </div>
                         {% endif %}
                     {% empty %}
