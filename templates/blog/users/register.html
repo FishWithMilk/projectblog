@@ -1,7 +1,31 @@
 {% extends 'blog/base.html' %}
 {% load crispy_forms_tags %}
+{% block profhead %}
+    <style type="text/css">
+        #mainNav ul.navbar-nav > li.nav-item > a {
+            padding: 10px 20px;
+            color: #343a40;
+        }
+
+        #mainNav .navbar-nav > li.nav-item > a:focus, #mainNav .navbar-nav > li.nav-item > a:hover {
+            color: rgba(0, 133, 161, 0.8);
+        }
+
+        #mainNav .navbar-brand {
+            padding: 10px 20px;
+            color: #343a40;
+        }
+
+        #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
+            color: rgba(0, 133, 161, 0.8);
+        }
+
+
+    </style>
+{% endblock %}
 {% block content %}
-    <div class="container">
+    <div class="container mt-4">
+        <br>
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
@@ -12,11 +36,11 @@
                 <button class="btn btn-outline-info" type="submit">Sign Up</button>
             </div>
         </form>
-            <div class="border-top pt-3">
-                <small class="text-muted">
-                    Already Have An Account?<a class="ml-2" href="{% url 'login' %}">Sign In</a>
-                </small>
-            </div>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Already Have An Account?<a class="ml-2" href="{% url 'login' %}">Sign In</a>
+            </small>
+        </div>
     </div>
 
 {% endblock content %}

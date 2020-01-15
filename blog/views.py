@@ -23,7 +23,7 @@ class CategoryListView(ListView):
     template_name = 'blog/category_list.html'
     context_object_name = 'categories'
     paginate_by = 3
-
+    ordering = ['name']
 
 class CategorySortedListView(ListView):
     model = Post
@@ -47,7 +47,7 @@ class UserPostListView(ListView):
         return Post.objects.filter(author=user).order_by('-date_posted')
 
 
-class PostDetailView(HitCountDetailView,HitCountMixin):
+class PostDetailView(HitCountDetailView, HitCountMixin):
     model = Post
     template_name = 'blog/post.html'
     count_hit = True
@@ -55,6 +55,7 @@ class PostDetailView(HitCountDetailView,HitCountMixin):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
+    template_name = 'blog/post_create.html'
     fields = ['title', 'content', 'category', 'picture']
 
     def form_valid(self, form):

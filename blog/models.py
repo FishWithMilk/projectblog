@@ -6,13 +6,13 @@ from django.contrib.contenttypes.fields import GenericRelation
 from hitcount.models import HitCountMixin, HitCount
 
 
-class Post(models.Model,HitCountMixin):
+class Post(models.Model, HitCountMixin):
     title = models.CharField(max_length=100)
     picture = models.ImageField(upload_to='post_pics')
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
-    category = models.ManyToManyField('Category', help_text="Select a category for this article", blank=True, null=True)
+    category = models.ManyToManyField('Category', help_text="Select a category for this article", blank=True)
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
                                         related_query_name='hit_count_generic_relation')
 

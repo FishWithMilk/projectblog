@@ -3,8 +3,8 @@
 
 
 {% block content %}
-    {% include 'blog/page_header.html' with header_img_url='/static/img/home-bg.jpg' header_title='Clean Blog' header_subtitle='A Blog Theme by Start Bootstrap' %}
-<h1 class="mb-3">All from "{{ view.kwargs.name }}" category ({{ page_obj.paginator.count }})</h1>
+    {% include 'blog/page_header.html' with header_img_url='/static/img/burzum.jpg' header_title='Sorting by categories' header_subtitle='' %}
+    <h1 class="mb-3">All from "{{ view.kwargs.name }}" category ({{ page_obj.paginator.count }})</h1>
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">
@@ -24,10 +24,14 @@
                             <h2 class="post-title">
                                 {{ post.title }}
                             </h2>
-                            <object><a href="{% url 'sorted-category' post.category.get %}"><span class="badge badge-warning">{{ post.category.get }}</span></a></object>
+                            <object><a href="{% url 'sorted-category' post.category.get %}"><span
+                                    class="badge badge-warning">{{ post.category.get }}</span></a></object>
                             <div class="row">
-                                <p><img class="rounded-circle account-img ml-3" src="{{ post.author.image.url }}" width="35" height="35"></p>
-                                <object><p class="post-meta ml-2 "><a href="{% url 'user-posts' post.author %}">{{ post.author.username }}</a>  </p></object>
+                                <p><img class="rounded-circle account-img ml-3" src="{{ post.author.image.url }}"
+                                        width="35" height="35"></p>
+                                <object><p class="post-meta ml-2 "><a
+                                        href="{% url 'user-posts' post.author %}">{{ post.author.username }}</a></p>
+                                </object>
                                 <p class="ml-3">{{ post.date_posted }}</p>
                             </div>
 
