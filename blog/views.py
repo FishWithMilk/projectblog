@@ -1,6 +1,10 @@
+import os
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
+from projectblog.settings import STATIC_ROOT
 from .models import Post, Category, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from users.models import CustomUser
@@ -104,6 +108,15 @@ def index(request):
         'posts': Post.objects.all()
     }
     return render(request, 'blog/index.html', context)
+
+def about(request):
+    f = open(os.path.join(STATIC_ROOT, 'about.txt'), 'r')
+    content = f.read()
+    f.close()
+    context = {
+        'about': content
+    }
+    return render(request, 'blog/about.html', context)
 
 
 @login_required()

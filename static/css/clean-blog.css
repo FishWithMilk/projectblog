@@ -5,6 +5,7 @@
  */
 
 body {
+    height: 100%;
     font-size: 20px;
     color: #212529;
     font-family: 'Lora', 'Times New Roman', serif;
@@ -179,11 +180,12 @@ img::-moz-selection {
 }
 
 header.masthead {
-    margin-bottom: 50px;
-    background: no-repeat center center;
+    min-height: 100vh;
+    max-height: 100vh;
+    margin-bottom: 20px;
+    background-repeat: no-repeat;
     background-color: #868e96;
-    background-attachment: scroll;
-    position: relative;
+    background-position: center;
     background-size: cover;
 }
 
@@ -226,7 +228,7 @@ header.masthead .site-heading h1 {
 header.masthead .page-heading .subheading,
 header.masthead .site-heading .subheading {
     font-size: 24px;
-    font-weight: 300;
+    font-weight: 500;
     line-height: 1.1;
     display: block;
     margin: 10px 0 0;
@@ -236,7 +238,7 @@ header.masthead .site-heading .subheading {
 @media only screen and (min-width: 768px) {
     header.masthead .page-heading h1,
     header.masthead .site-heading h1 {
-        font-size: 80px;
+        font-size: 65px;
     }
 }
 

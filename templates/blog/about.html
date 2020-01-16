@@ -2,21 +2,6 @@
 {% load staticfiles %}
 
 {% block content %}
-    {% include 'blog/page_header.html' with header_img_url='/static/img/burzum.jpg' header_title='About Project' header_subtitle='Components' %}
-
-
-  <!-- Main Content -->
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <p>The site is based on free template "Clean Blog" from Start Bootstrap. </p>
-          <p>The following components were used in the project: PostgreSQL, Django Rest Framework(Djoser,token), Postman etc.</p>
-
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
+    {% include 'blog/page_header.html' with header_img_url='/static/img/burzum.jpg' header_title='About Project' header_subtitle=about  %}
 
 {% endblock %}

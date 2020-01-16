@@ -23,7 +23,7 @@ urlpatterns = [
     path('category/', CategoryListView.as_view(), name='category'),
     path('category/<str:name>/', CategorySortedListView.as_view(), name='sorted-category'),
     path('comment/<int:pk>/remove/', views.comment_remove, name='comment_remove'),
-    path('about/', TemplateView.as_view(template_name='blog/about.html'), name='about_url'),
+    path('about/', views.about, name='about_url'),
     path('contact/', TemplateView.as_view(template_name='blog/contact.html'), name='contact_url'),
 
     path('api/post/create/', PostCreateViewAPI.as_view(), name='post-create-api'),
