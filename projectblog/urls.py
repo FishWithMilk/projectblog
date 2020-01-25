@@ -20,6 +20,7 @@ from django.urls import path, include
 from users import views as user_views
 from django.contrib.auth import views as auth_views
 from django.views.generic import RedirectView
+from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,6 +38,10 @@ urlpatterns = [
          name='password_reset_confirm'),
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='blog/users/password_reset_complete.html'),
          name='password_reset_complete'),
+    # url(r'^login/$', auth_views.LoginView.as_view(template_name='rest_framework/login.html'), name='login_api'),
+    # url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout_api')
+    path('api/base-auth/login/', auth_views.LoginView.as_view(template_name='rest_framework/login.html'), name='login_api'),
+    path('api/base-auth/logout/', auth_views.LogoutView.as_view(), name='logout_api')
 
 ]
 

@@ -1,0 +1,33 @@
+{% extends "rest_framework/base.html" %}
+{% block navbar %}
+    <div class="navbar navbar-static-top {% block bootstrap_navbar_variant %}navbar-inverse{% endblock %}"
+         role="navigation">
+        <div class="container">
+            <span>
+              {% block branding %}
+                  <a class='navbar-brand' rel="nofollow" href="{% url 'index_url' %}">
+                    BlogBurz API
+                </a>
+              {% endblock %}
+            </span>
+            <ul class="nav navbar-nav ">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'post-create-api' %}">Create</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'post-all-api' %}">All</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout_api' %}?next={{request.path}}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login_api' %}?next={{request.path}}">Login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+{% block title %} BlogBurz API {% endblock %}
