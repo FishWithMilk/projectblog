@@ -32,6 +32,10 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('category', kwargs={'pk': self.pk})
 
+    @property
+    def count(self):
+        return Post.objects.filter(category=self).count()
+
 
 class Comment(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='comments')

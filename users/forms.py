@@ -21,10 +21,3 @@ class CustomUserChangeForm(forms.ModelForm):
         widgets = {
             'image': forms.FileInput(),
         }
-
-
-# class ProfileUpdateForm(forms.ModelForm):
-#
-#     class Meta:
-#         model = Profile
-#         fields = ['image']

@@ -23,24 +23,27 @@ from django.views.generic import RedirectView
 from django.conf.urls import url
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('blog.urls')),
     path('', RedirectView.as_view(pattern_name='index_url')),
+    path('admin/', admin.site.urls, name='admin_panel'),
+    path('admin/', RedirectView.as_view(pattern_name='admin_panel')),
     path('register/', user_views.register, name='register'),
     path('profile/', user_views.profile, name='profile'),
     path('login/', auth_views.LoginView.as_view(template_name='blog/users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='blog/users/logout.html'), name='logout'),
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name='blog/users/password_reset.html'),
          name='password_reset'),
-    path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='blog/users/password_reset_done.html'),
+    path('password-reset/done/',
+         auth_views.PasswordResetDoneView.as_view(template_name='blog/users/password_reset_done.html'),
          name='password_reset_done'),
-    path('password-reset-confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='blog/users/password_reset_confirm.html'),
+    path('password-reset-confirm/<uidb64>/<token>/',
+         auth_views.PasswordResetConfirmView.as_view(template_name='blog/users/password_reset_confirm.html'),
          name='password_reset_confirm'),
-    path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='blog/users/password_reset_complete.html'),
+    path('password-reset-complete/',
+         auth_views.PasswordResetCompleteView.as_view(template_name='blog/users/password_reset_complete.html'),
          name='password_reset_complete'),
-    # url(r'^login/$', auth_views.LoginView.as_view(template_name='rest_framework/login.html'), name='login_api'),
-    # url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout_api')
-    path('api/base-auth/login/', auth_views.LoginView.as_view(template_name='rest_framework/login.html'), name='login_api'),
+    path('api/base-auth/login/', auth_views.LoginView.as_view(template_name='rest_framework/login.html'),
+         name='login_api'),
     path('api/base-auth/logout/', auth_views.LogoutView.as_view(), name='logout_api')
 
 ]

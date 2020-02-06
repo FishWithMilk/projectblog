@@ -88,6 +88,8 @@ img::-moz-selection {
     background: transparent;
 }
 
+
+
 #mainNav {
     position: absolute;
     border-bottom: 1px solid #e9ecef;
@@ -423,9 +425,6 @@ footer .copyright {
     padding: 25px 35px;
 }
 
-fieldset {
-    margin-top: 25px;
-}
 
 /*#message {*/
 /*  box-sizing: border-box;*/

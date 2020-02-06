@@ -1,6 +1,12 @@
 {% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+{% block profhead %}
+    <link href="{% static 'css/profhead.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-    <div class="container">
+    <div class="container" id="mgwithoutheader">
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">

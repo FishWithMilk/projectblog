@@ -1,13 +1,9 @@
-from django.conf import settings
-from django.conf.urls.static import static
-from django.conf.urls import url
-from django.urls import path
 from . import views
 from django.urls import path, include
 from django.views.generic import TemplateView
-from .views import PostListView, PostDetailView,\
-    PostCreateView, PostUpdateView, PostDeleteView,\
-    UserPostListView, CategoryListView, CategorySortedListView,\
+from .views import PostListView, PostDetailView, \
+    PostCreateView, PostUpdateView, PostDeleteView, \
+    UserPostListView, CategoryListView, CategorySortedListView, \
     PostCreateViewAPI, PostListViewAPI, PostDetailViewAPI
 
 urlpatterns = [
@@ -24,7 +20,6 @@ urlpatterns = [
     path('category/<str:name>/', CategorySortedListView.as_view(), name='sorted-category'),
     path('comment/<int:pk>/remove/', views.comment_remove, name='comment_remove'),
     path('about/', views.about, name='about_url'),
-    path('contact/', TemplateView.as_view(template_name='blog/contact.html'), name='contact_url'),
 
     path('api/post/create/', PostCreateViewAPI.as_view(), name='post-create-api'),
     path('api/post/all/', PostListViewAPI.as_view(), name='post-all-api'),

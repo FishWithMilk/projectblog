@@ -1,35 +1,13 @@
 {% extends 'blog/base.html' %}
 {% load crispy_forms_tags %}
 {% load staticfiles %}
+
 {% block profhead %}
-    <style type="text/css">
-        #mainNav ul.navbar-nav > li.nav-item > a {
-            padding: 10px 20px;
-            color: #343a40;
-        }
-
-        #mainNav .navbar-nav > li.nav-item > a:focus, #mainNav .navbar-nav > li.nav-item > a:hover {
-            color: rgba(0, 133, 161, 0.8);
-        }
-
-        #mainNav .navbar-brand {
-            padding: 10px 20px;
-            color: #343a40;
-        }
-
-        #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-            color: rgba(0, 133, 161, 0.8);
-        }
-
-
-    </style>
+    <link href="{% static 'css/profhead.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-    {% if not messages %}
-        <br>
-    {% endif %}
-    <div class="container mt-5">
+    <div class="container" id="mgwithoutheader">
         <div class="media">
             <img class="rounded-circle account-img" src="{{ user.image.url }}" width="150" height="150">
             <div class="media-body ml-5">
@@ -43,16 +21,10 @@
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Profile Info</legend>
                 {{ u_form|crispy }}
-
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Update</button>
             </div>
         </form>
     </div>
-
 {% endblock content %}
-
-{#    <script>#}
-{#        $('#mainNav').addClass('is-visible ');#}
-{#    </script>#}

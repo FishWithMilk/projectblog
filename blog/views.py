@@ -1,9 +1,7 @@
 import os
-
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
 from projectblog.settings import STATIC_ROOT
 from .models import Post, Category, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -26,14 +24,15 @@ class CategoryListView(ListView):
     model = Category
     template_name = 'blog/category_list.html'
     context_object_name = 'categories'
-    paginate_by = 3
+    paginate_by = 5
     ordering = ['name']
+
 
 class CategorySortedListView(ListView):
     model = Post
     template_name = 'blog/sortedcategory_list.html'
     context_object_name = 'posts'
-    paginate_by = 3
+    paginate_by = 5
 
     def get_queryset(self):
         category = get_object_or_404(Category, name=self.kwargs.get('name'))
@@ -92,6 +91,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
+
 class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Comment
     success_url = "/"
@@ -108,6 +108,7 @@ def index(request):
         'posts': Post.objects.all()
     }
     return render(request, 'blog/index.html', context)
+
 
 def about(request):
     f = open(os.path.join(STATIC_ROOT, 'about.txt'), 'r')
@@ -138,13 +139,12 @@ def add_comment_to_post(request, pk):
 
 @login_required
 def comment_remove(request, pk):
-
     comment = get_object_or_404(Comment, pk=pk)
     comment.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-####REST FRAMEWORK 17.12 #####
+#### REST FRAMEWORK #####
 from rest_framework import generics, serializers
 from .serializers import PostDetailSerializer, PostListSerializer
 from .permissions import IsOwnerOrReadOnly

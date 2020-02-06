@@ -4,17 +4,16 @@
 
 {% block content %}
     {% include 'blog/page_header.html' with header_img_url=post.picture.url header_title=post.title %}
+
     <!-- Post Content -->
     <article>
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 col-md-10 mx-auto">
 
-
                     <p>{{ post.content }}</p>
 
-
-                    {% if object.author == user %}
+                    {% if object.author == user or user.is_staff %}
                         <div>
                             <a class="btn btn-success btn-sm mt-1 mb-1"
                                href="{% url 'post-update' object.id %}">Update</a>
@@ -36,7 +35,7 @@
                     <a class="btn btn-dark" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
 
                     {% for comment in post.comments.all %}
-                        {% if user.is_authenticated  %}
+                        {% if user.is_authenticated %}
                             <div class="comment border-bottom border-top mt-4">
                                 <div class="row ml-2">
                                     <p><img class="rounded-circle account-img ml-3" src="{{ comment.author.image.url }}"
@@ -50,10 +49,8 @@
                                         <p><a href="{% url 'comment_remove' pk=comment.pk %}"><i
                                                 class="fas fa-trash-alt"></i></a></p>
                                     {% endif %}
-
                                 </div>
                                 <p class="ml-2">{{ comment.text|linebreaks }}</p>
-
                             </div>
                         {% endif %}
                     {% empty %}
@@ -63,5 +60,6 @@
             </div>
         </div>
     </article>
+
 {% endblock content %}
 

@@ -1,38 +1,18 @@
 {% extends 'blog/base.html' %}
 {% load crispy_forms_tags %}
 {% load staticfiles %}
+
 {% block profhead %}
-    <style type="text/css">
-        #mainNav ul.navbar-nav > li.nav-item > a {
-            padding: 10px 20px;
-            color: #343a40;
-        }
-
-        #mainNav .navbar-nav > li.nav-item > a:focus, #mainNav .navbar-nav > li.nav-item > a:hover {
-            color: rgba(0, 133, 161, 0.8);
-        }
-
-        #mainNav .navbar-brand {
-            padding: 10px 20px;
-            color: #343a40;
-        }
-
-        #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-            color: rgba(0, 133, 161, 0.8);
-        }
-
-
-    </style>
+    <link href="{% static 'css/profhead.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-    <br>
-    <div class="container mt-4">
+    <div class="container" id="mgwithoutheader">
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Log In</legend>
-                {{ form|crispy  }}
+                {{ form|crispy }}
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Login</button>
@@ -41,11 +21,11 @@
                 </small>
             </div>
         </form>
-            <div class="border-top pt-3">
-                <small class="text-muted">
-                    Need An Account?<a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
-                </small>
-            </div>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Need An Account?<a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+            </small>
+        </div>
     </div>
 
 {% endblock content %}
